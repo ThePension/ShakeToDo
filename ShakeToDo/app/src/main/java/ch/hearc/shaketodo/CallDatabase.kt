@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.room.Room
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
-
+/*
 class CallDatabase {
     companion object {
         fun test(db: AppDatabase){
@@ -31,4 +31,4 @@ class CallDatabase {
             }
         }
     }
-}
+}*/
