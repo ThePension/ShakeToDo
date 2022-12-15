@@ -6,7 +6,10 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.room.Room
 import ch.hearc.shaketodo.database.AppDatabase
+import ch.hearc.shaketodo.model.FactoryToDo
 import ch.hearc.shaketodo.model.ToDo
+import java.time.LocalDateTime
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.stream.IntStream
 
@@ -19,24 +22,24 @@ class MainActivity : AppCompatActivity() {
         val todoDao = database.todoDao()
 
         Executors.newSingleThreadExecutor().execute {
-            todoDao?.insertAll(ToDo(
-                0,
-                "Todo 1",
-                "0000001",
-                "0000002",
-                "These are the notes",
-                "/Path/To/image",
-                5,
-                false),
-                ToDo(
-                0,
-                "Todo 2",
-                "0000001",
-                "0000002",
-                "These are the notes",
-                "/Path/To/image",
-                5,
-                false))
+            todoDao?.insertAll(
+                FactoryToDo.createToDo(
+                    "Nettoyer la caisse",
+                    "24/11/2022",
+                    "Il faut absolument nettoyer la voiture avant noël sinon c'est la merde",
+                    "./images/image.png",
+                    6,
+                    false
+                ),
+                FactoryToDo.createToDo(
+                    "Nettoyer Tim",
+                    "24/12/2022",
+                    "Il faut absolument nettoyer Tim avant noël sinon c'est la merde",
+                    "./images/image.png",
+                    100,
+                    false
+                )
+            )
         }
 
         todoDao?.getAll()?.observe(this, Observer { todos ->
