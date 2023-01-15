@@ -1,49 +1,59 @@
 package ch.hearc.shaketodo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.lifecycle.Observer
-import androidx.room.Room
+import ch.hearc.shaketodo.adapter.CustomAdapter
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.FactoryToDo
-import ch.hearc.shaketodo.model.ToDo
-import java.time.LocalDateTime
-import java.util.*
 import java.util.concurrent.Executors
-import java.util.stream.IntStream
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var listView: ListView
+
+    // Declare ArrayList to store list items
+    private val listItems = arrayListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        listView = findViewById(R.id.listView)
+
         val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
         val todoDao = database.todoDao()
 
-        Executors.newSingleThreadExecutor().execute {
-            todoDao?.insertAll(
-                FactoryToDo.createToDo(
-                    "Nettoyer la caisse",
-                    "24/11/2022",
-                    "Il faut absolument nettoyer la voiture avant noël sinon c'est la merde",
-                    "./images/image.png",
-                    6,
-                    false
-                ),
-                FactoryToDo.createToDo(
-                    "Nettoyer Tim",
-                    "24/12/2022",
-                    "Il faut absolument nettoyer Tim avant noël sinon c'est la merde",
-                    "./images/image.png",
-                    100,
-                    false
-                )
-            )
-        }
+        todoDao.getAll().observe(this, Observer { todos ->
+            //Log.i("MainActivity", "todos=$todos")
 
-        todoDao?.getAll()?.observe(this, Observer { todos ->
-            Log.i("MainActivity", "todos=$todos")
+            val arrayAdapter =
+                CustomAdapter(this, todos)
+
+            listView.adapter = arrayAdapter
+
+            arrayAdapter.notifyDataSetChanged()
         })
+
+        // Find the add button container
+        val addButtonContainer = findViewById<LinearLayout>(R.id.add_button_container)
+
+        // Set the on click listener on the container
+        addButtonContainer.setOnClickListener {
+            // Your code here, for example:
+            showAddItem()
+        }
+    }
+
+
+    private fun showAddItem() {
+        // Create an Intent to start NewActivity
+        val intent = Intent(this, AddActivity::class.java)
+
+        // Start the NewActivity
+        startActivity(intent)
     }
 }
