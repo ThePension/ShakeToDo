@@ -16,46 +16,7 @@
         android:text="Shake To Do"
         android:textColor="@color/custom_yellow"
         android:textSize="26dp" />
-    <EditText
-        android:layout_below="@id/textView"
-        android:id="@+id/editText"
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Add an Item"
-        android:background="@color/custom_yellow"
-        android:textColor="@color/custom_blue"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1"
-        android:orientation="horizontal"
-        android:layout_below="@id/editText"
-        android:padding="10dp">
-        <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/custom_yellow"
-            android:textColor="@color/custom_blue"
-            android:text="Add"/>
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:backgroundTint="@color/custom_yellow"
-            android:textColor="@color/custom_blue"
-            android:layout_marginLeft="70dp"/>
-        <Button
-            android:id="@+id/clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear"
-            android:backgroundTint="@color/custom_yellow"
-            android:textColor="@color/custom_blue"
-            android:layout_marginLeft="60dp"/>
-    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView1"
@@ -63,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_below="@id/linearLayout1"
+        android:layout_below="@id/textView"
         android:text="To-Dos"
         android:textSize="20dp"
         android:textColor="@color/custom_yellow" />
@@ -80,24 +41,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/add_button_container"
+        <LinearLayout
+            android:id="@+id/add_button_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/ic_plus_button"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:layout_margin="20dp">
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:background="@drawable/ic_plus_button"
-                android:orientation="horizontal"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:layout_margin="20dp">
+                android:src="@drawable/ic_plus"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_plus"/>
-
-            </LinearLayout>
+        </LinearLayout>
 
     </FrameLayout>
 

@@ -15,7 +15,7 @@ interface ToDoDao {
     fun loadAllByIds(todoids: IntArray): List<ToDo>
 
     @Query("SELECT * FROM todos WHERE id=:todoid")
-    fun findByName(todoid: Int): ToDo
+    fun findById(todoid: Long): ToDo
 
     @Insert
     fun insertAll(vararg todos: ToDo)

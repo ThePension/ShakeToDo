@@ -1,13 +1,11 @@
 package ch.hearc.shaketodo
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.FactoryToDo
-import ch.hearc.shaketodo.model.ToDo
 import java.util.concurrent.Executors
 
 class AddActivity : AppCompatActivity() {
@@ -19,24 +17,29 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
 
-
         // Find views
         val nameEditText = findViewById<EditText>(R.id.name_edit_text)
-        //val createDateEditText = findViewById<EditText>(R.id.create_date_edit_text)
-        //val dueDateEditText = findViewById<EditText>(R.id.due_date_edit_text)
+        val dueDatePicker = findViewById<DatePicker>(R.id.date_picker)
         val notesEditText = findViewById<EditText>(R.id.notes_edit_text)
-        //val imageLocationEditText = findViewById<EditText>(R.id.image_location_edit_text)
-        //val priorityEditText = findViewById<EditText>(R.id.priority_edit_text)
+        val prioritySpinner = findViewById<Spinner>(R.id.priority_spinner)
         val addButton = findViewById<Button>(R.id.add_button)
+
+        // Create and fill number picker
+        val spinner: Spinner = findViewById(R.id.priority_spinner)
+        val numbers = (1..10).toList()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, numbers)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
 
         // Set add button click listener
         addButton.setOnClickListener {
             val todo = FactoryToDo.createToDo(
                 name = nameEditText.text.toString(),
-                duedate = "24/11/2022",
+                duedate = dueDatePicker.toString(),
                 notes = notesEditText.text.toString(),
-                imageLocation = "./images/image.png",
-                priority = 6,
+                imageLocation = "./images/image.png", // TODO
+                priority = spinner.selectedItem as Int,
                 completed = false
             )
             val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
@@ -45,7 +48,6 @@ class AddActivity : AppCompatActivity() {
             Executors.newSingleThreadExecutor().execute {
                 todoDao.insertAll(todo)
             }
-
             finish()
         }
     }

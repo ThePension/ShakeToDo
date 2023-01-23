@@ -3,4 +3,8 @@
     <string name="name">Name</string>
     <string name="notes">Notes</string>
     <string name="add_button_text">Add</string>
+    <string name="pic_button_text">Take Picture</string>
+    <string name="creation_date">Date created: </string>
+    <string name="due_date">Date due: </string>
+    <string name="delete">Delete</string>
 </resources>

@@ -1,5 +1,6 @@
 package ch.hearc.shaketodo.model
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -14,7 +15,7 @@ class FactoryToDo {
             completed: Boolean
         )
                 : ToDo {
-            var createdate = LocalDateTime.now();
+            var createdate = LocalDate.now();
             return ToDo(
                 0,
                 name,
