@@ -1,25 +1,17 @@
 package ch.hearc.shaketodo
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.FactoryToDo
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+
 
 class AddActivity : AppCompatActivity() {
     // private lateinit var viewBinding: ActivityMainBinding
@@ -74,6 +66,12 @@ class AddActivity : AppCompatActivity() {
         // Create an Intent to start NewActivity
         val intent = Intent(this, TakePictureActivity::class.java)
         // Start the NewActivity
-        startActivity(intent)
+        startActivityForResult(intent, 1)
+
+        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            // Handle the returned Uri
+        }
     }
+
+
 }
