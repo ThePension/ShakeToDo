@@ -1,6 +1,7 @@
 package ch.hearc.shaketodo
 
 import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -61,10 +62,22 @@ class ToDoActivity : AppCompatActivity() {
         deleteTodo()
     }
 
+    public fun onUpdateButtonClick(view: View) {
+        showUpdateTodo()
+    }
+
     private fun deleteTodo() {
         Executors.newSingleThreadExecutor().execute {
             todoDao.delete(todo)
         }
         finish()
+    }
+
+    private fun showUpdateTodo() {
+        // Create an Intent to start NewActivity
+        val intent = Intent(this, UpdateActivity::class.java)
+        intent.putExtra("todoId", todo.id)
+        // Start the NewActivity
+        startActivity(intent)
     }
 }

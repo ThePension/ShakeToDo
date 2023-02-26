@@ -49,7 +49,6 @@ class AddActivity : AppCompatActivity() {
         val nameEditText = findViewById<EditText>(R.id.name_edit_text)
         val dueDatePicker = findViewById<DatePicker>(R.id.date_picker)
         val notesEditText = findViewById<EditText>(R.id.notes_edit_text)
-        val prioritySpinner = findViewById<Spinner>(R.id.priority_spinner)
         val addButton = findViewById<Button>(R.id.add_button)
         val takePictureButton = findViewById<Button>(R.id.pic_button)
 
@@ -74,7 +73,7 @@ class AddActivity : AppCompatActivity() {
 
             val todo = FactoryToDo.createToDo(
                 name = nameEditText.text.toString(),
-                duedate = dueDatePicker.toString(),
+                duedate = "" + dueDatePicker.year + "-" + dueDatePicker.month + "-" + dueDatePicker.dayOfMonth,
                 notes = notesEditText.text.toString(),
                 imageLocation = imageUriString,
                 priority = spinner.selectedItem as Int,

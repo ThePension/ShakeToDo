@@ -73,11 +73,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun showAddItem() {
         // Create an Intent to start NewActivity
         val intent = Intent(this, AddActivity::class.java)
         // Start the NewActivity
         startActivity(intent)
     }
+
 }
