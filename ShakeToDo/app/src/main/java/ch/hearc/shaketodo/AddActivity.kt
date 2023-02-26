@@ -1,9 +1,12 @@
 package ch.hearc.shaketodo
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
@@ -17,13 +20,29 @@ class AddActivity : AppCompatActivity() {
     // private lateinit var viewBinding: ActivityMainBinding
 
     private var imageCapture: ImageCapture? = null
+    private var imageView: ImageView? = null
 
     private lateinit var cameraExecutor: ExecutorService
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+
+            // Get the image URI
+            val imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
+
+            // do stuff here
+            Log.i("Image handling", "Image URI : ${imageUri.toString()}")
+
+            imageView?.setImageURI(imageUri)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-
 
         // Find views
         val nameEditText = findViewById<EditText>(R.id.name_edit_text)
@@ -32,6 +51,8 @@ class AddActivity : AppCompatActivity() {
         val prioritySpinner = findViewById<Spinner>(R.id.priority_spinner)
         val addButton = findViewById<Button>(R.id.add_button)
         val takePictureButton = findViewById<Button>(R.id.pic_button)
+
+        imageView = findViewById<ImageView>(R.id.imageView)
 
         // Create and fill number picker
         val spinner: Spinner = findViewById(R.id.priority_spinner)
@@ -66,12 +87,6 @@ class AddActivity : AppCompatActivity() {
         // Create an Intent to start NewActivity
         val intent = Intent(this, TakePictureActivity::class.java)
         // Start the NewActivity
-        startActivityForResult(intent, 1)
-
-        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            // Handle the returned Uri
-        }
+        startForResult.launch(intent)
     }
-
-
 }

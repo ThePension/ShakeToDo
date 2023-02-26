@@ -20,7 +20,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import ch.hearc.shaketodo.helper.BetterActivityResult
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -28,11 +27,11 @@ import java.util.concurrent.ExecutorService
 
 class TakePictureActivity : AppCompatActivity() {
     // private lateinit var viewBinding: ActivityMainBinding
-    protected val activityLauncher: BetterActivityResult<Intent, ActivityResult> = BetterActivityResult.registerActivityForResult(this)
+    // protected val activityLauncher: BetterActivityResult<Intent, ActivityResult> = BetterActivityResult.registerActivityForResult(this)
 
     private var imageCapture: ImageCapture? = null
 
-    private lateinit var cameraExecutor: ExecutorService
+    // private lateinit var cameraExecutor: ExecutorService
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -93,8 +92,7 @@ class TakePictureActivity : AppCompatActivity() {
                     Log.d(TAG, msg)
 
                     val resultIntent = Intent()
-                    // TODO Add extras or a data URI to this intent as appropriate.
-                    resultIntent.putExtra("image_uri", output.savedUri)
+                    resultIntent.putExtra("imageUri", output.savedUri.toString())
                     setResult(RESULT_OK, resultIntent)
                     finish()
                 }
@@ -157,7 +155,7 @@ class TakePictureActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraExecutor.shutdown()
+        // cameraExecutor.shutdown()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
