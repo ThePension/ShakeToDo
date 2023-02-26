@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/custom_yellow"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +20,9 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/custom_blue"
+            android:autofillHints="name"/>
 
         <EditText
             android:id="@+id/notes_edit_text"
@@ -28,7 +32,9 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_edit_text" />
+            app:layout_constraintTop_toBottomOf="@id/name_edit_text"
+            android:textColor="@color/custom_blue"
+            android:autofillHints="notes"/>
 
         <DatePicker
             android:id="@+id/date_picker"
@@ -38,8 +44,16 @@
             android:datePickerMode="spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notes_edit_text" />
+            app:layout_constraintTop_toBottomOf="@id/notes_edit_text"
+            android:calendarTextColor="@color/custom_blue" />
+        <Space
+            android:id="@+id/priority_spacer"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            app:layout_constraintTop_toBottomOf="@id/date_picker"
+            >
 
+        </Space>
         <LinearLayout
             android:id="@+id/priority_layout"
             android:layout_width="match_parent"
@@ -47,40 +61,53 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_picker">
+            app:layout_constraintTop_toBottomOf="@id/priority_spacer"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select a priority:" />
+                android:text="@string/select_a_priority"
+                android:textColor="@color/custom_blue"
+                android:textSize="20sp"/>
 
             <Spinner
                 android:id="@+id/priority_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="20sp"
+                android:minWidth="5sp"
+                android:layout_weight="50"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:text="@string/add_button_text"
-            android:onClick="onAddButtonClick"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/priority_layout" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            app:layout_constraintTop_toBottomOf="@id/priority_layout">
+            <Button
+                android:id="@+id/add_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/add_button_text"
+                android:onClick="onAddButtonClick"
+                android:layout_alignParentBottom="true"
+                />
 
-        <Button
-            android:id="@+id/pic_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:text="@string/pic_button_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_button" />
+            <Button
+                android:id="@+id/pic_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/pic_button_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_button"
+                android:layout_above="@id/add_button"
+                />
+
+</RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

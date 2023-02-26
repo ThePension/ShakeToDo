@@ -7,4 +7,5 @@
     <string name="creation_date">Date created: </string>
     <string name="due_date">Date due: </string>
     <string name="delete">Delete</string>
+    <string name="select_a_priority">Select a priority:</string>
 </resources>
