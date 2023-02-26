@@ -54,11 +54,26 @@ class AddActivity : AppCompatActivity() {
 
 
     private lateinit var cameraExecutor: ExecutorService
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+
+            // Get the image URI
+            val imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
+
+            // do stuff here
+            Log.i("Image handling", "Image URI : ${imageUri.toString()}")
+
+            imageView?.setImageURI(imageUri)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-
 
         // Find views
         val nameEditText = findViewById<EditText>(R.id.name_edit_text)
