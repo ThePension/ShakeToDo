@@ -21,6 +21,7 @@ class AddActivity : AppCompatActivity() {
 
     private var imageCapture: ImageCapture? = null
     private var imageView: ImageView? = null
+    private var imageUri: Uri? = null
 
     private lateinit var cameraExecutor: ExecutorService
 
@@ -30,7 +31,7 @@ class AddActivity : AppCompatActivity() {
             val intent = result.data
 
             // Get the image URI
-            val imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
+            imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
 
             // do stuff here
             Log.i("Image handling", "Image URI : ${imageUri.toString()}")
@@ -65,11 +66,17 @@ class AddActivity : AppCompatActivity() {
 
         // Set add button click listener
         addButton.setOnClickListener {
+            var imageUriString: String = "none"
+
+            if (imageUri != null) {
+                imageUriString = imageUri.toString()
+            }
+
             val todo = FactoryToDo.createToDo(
                 name = nameEditText.text.toString(),
                 duedate = dueDatePicker.toString(),
                 notes = notesEditText.text.toString(),
-                imageLocation = "./images/image.png", // TODO
+                imageLocation = imageUriString,
                 priority = spinner.selectedItem as Int,
                 completed = false
             )

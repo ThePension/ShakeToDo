@@ -1,12 +1,10 @@
 package ch.hearc.shaketodo
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import ch.hearc.shaketodo.adapter.CustomAdapter
 import ch.hearc.shaketodo.database.AppDatabase
@@ -30,8 +28,6 @@ class ToDoActivity : AppCompatActivity() {
         val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
         todoDao = database.todoDao()
 
-
-
         if (todoId == -1L)
         {
             Log.i("MainActivity", "ERREUR - TODO NOT FOUND")
@@ -42,7 +38,7 @@ class ToDoActivity : AppCompatActivity() {
         val todoDuedate = findViewById<TextView>(R.id.todo_duedate)
         val todoCompleted = findViewById<CheckBox>(R.id.todo_completed)
         val todoPriority = findViewById<RatingBar>(R.id.todo_priority)
-
+        val imageView = findViewById<ImageView>(R.id.imageView)
 
         Executors.newSingleThreadExecutor().execute {
             todo = todoDao.findById(todoId)
@@ -52,6 +48,7 @@ class ToDoActivity : AppCompatActivity() {
             todoCompleted.isChecked = todo.completed ?: false
             val rating = todo.priority ?: 0
             todoPriority.rating = rating / 2F
+            imageView?.setImageURI(Uri.parse(todo.imagelocation))
         }
 
         /*val btnDelete = findViewById<Button>(R.id.delete_todo_button)
