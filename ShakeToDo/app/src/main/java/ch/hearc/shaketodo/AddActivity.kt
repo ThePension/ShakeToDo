@@ -61,7 +61,7 @@ class AddActivity : AppCompatActivity() {
             val intent = result.data
 
             // Get the image URI
-            val imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
+            imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
 
             // do stuff here
             Log.i("Image handling", "Image URI : ${imageUri.toString()}")
