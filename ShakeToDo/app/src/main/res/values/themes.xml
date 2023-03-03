@@ -33,6 +33,7 @@
     <style name="Theme.ShakeToDo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ShakeToDo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="Theme.ShakeToDo.Fullscreen" parent="Theme.ShakeToDo">
         <item name="android:actionBarStyle">@style/Widget.Theme.ShakeToDo.ActionBar.Fullscreen
         </item>
