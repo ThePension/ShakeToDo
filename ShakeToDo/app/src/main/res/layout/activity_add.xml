@@ -77,7 +77,10 @@
                 android:layout_height="wrap_content"
                 android:minHeight="20sp"
                 android:minWidth="5sp"
-                android:layout_weight="50"/>
+                android:layout_weight="50"
+                android:textAlignment="viewEnd"
+                android:backgroundTint="@color/custom_blue"
+                />
 
         </LinearLayout>
 
