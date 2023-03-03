@@ -14,4 +14,8 @@
     <string name="select_a_priority">Select a priority:</string>
     <string name="title_activity_take_picture">TakePictureActivity</string>
     <string name="take_picture_button">Take a picture</string>
+    <string name="select_a_priority">Select a priority:</string>
+    <string name="title_activity_update">UpdateActivity</string>
+    <string name="update_pic_button_text">Update Picture</string>
+    <string name="udpate_button_text">Udpate</string>
 </resources>

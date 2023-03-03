@@ -31,7 +31,7 @@ class UpdateActivity : AppCompatActivity() {
         val nameEditText = findViewById<EditText>(R.id.name_edit_text)
         val dueDatePicker = findViewById<DatePicker>(R.id.date_picker)
         val notesEditText = findViewById<EditText>(R.id.notes_edit_text)
-        val addButton = findViewById<Button>(R.id.add_button)
+        val updateButton = findViewById<Button>(R.id.update_button)
 
         // Create and fill number picker
         val spinner: Spinner = findViewById(R.id.priority_spinner)
@@ -45,8 +45,6 @@ class UpdateActivity : AppCompatActivity() {
         val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
         todoDao = database.todoDao()
 
-
-
         if (todoId == -1L)
         {
             Log.i("MainActivity", "ERREUR - TODO NOT FOUND")
@@ -56,11 +54,18 @@ class UpdateActivity : AppCompatActivity() {
         Executors.newSingleThreadExecutor().execute {
             todo = todoDao.findById(todoId)
             nameEditText.setText(todo.name)
+            notesEditText.setText(todo.notes)
             var splitDate = todo.duedate.toString().split("-")
             var date = intArrayOf(splitDate[0].toInt(), splitDate[1].toInt(), splitDate[2].toInt())
             dueDatePicker.updateDate(date[0], date[1], date[2])
             val rating = todo.priority ?: 0
             spinner.setSelection(rating)
+        }
+    }
+
+    fun onUpdateButtonClick() {
+        Executors.newSingleThreadExecutor().execute {
+            todoDao.update(todo)
         }
     }
 }

@@ -4,18 +4,23 @@ import android.net.Uri
 import android.content.Intent
 import android.net.Uri
 import android.content.Intent
+import android.app.RecoverableSecurityException
+import android.content.ContentResolver
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.activity.result.IntentSenderRequest
 import androidx.appcompat.app.AppCompatActivity
-import ch.hearc.shaketodo.adapter.CustomAdapter
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
-import org.w3c.dom.Text
-import java.util.Formatter
+import java.security.AccessController.getContext
 import java.util.concurrent.Executors
+
 
 class ToDoActivity : AppCompatActivity() {
 
@@ -53,11 +58,6 @@ class ToDoActivity : AppCompatActivity() {
             todoPriority.rating = rating / 2F
             imageView?.setImageURI(Uri.parse(todo.imagelocation))
         }
-
-        /*val btnDelete = findViewById<Button>(R.id.delete_todo_button)
-        btnDelete.setOnClickListener {
-            deleteTodo()
-        }*/
     }
 
     public fun onDeleteButtonClick(view: View) {

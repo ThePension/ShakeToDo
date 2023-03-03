@@ -45,16 +45,6 @@
             android:exported="false"
             android:label="@string/title_activity_take_picture"
             android:theme="@style/Theme.ShakeToDo.Fullscreen" />
-           
-        <activity 
-            android:name=".UpdateActivity"
-            android:exported="false"
-            android:label="@string/title_activity_update"
-            android:theme="@style/Theme.ShakeToDo.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
