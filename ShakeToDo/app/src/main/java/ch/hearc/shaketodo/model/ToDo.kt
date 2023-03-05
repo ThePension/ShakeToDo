@@ -15,7 +15,7 @@ data class ToDo (
     @ColumnInfo(name = "notes") val notes: String?,
     @ColumnInfo(name = "imagelocation") val imagelocation: String?,
     @ColumnInfo(name = "priority") val priority: Int?,
-    @ColumnInfo(name = "completed") val completed: Boolean?
+    @ColumnInfo(name = "completed") var completed: Boolean?
 ) {
 
 }

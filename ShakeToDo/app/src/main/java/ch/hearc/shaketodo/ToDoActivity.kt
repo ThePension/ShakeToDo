@@ -90,12 +90,17 @@ class ToDoActivity : AppCompatActivity() {
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
 
-            // Display a Toast message if
-            // acceleration value is over 12
+            // Set the ToDo state as Done if acceleration value is over 12
             if (acceleration > 10) {
-                Toast.makeText(applicationContext, "Shake event detected", Toast.LENGTH_SHORT)
-                    .show()
-                Log.i("ToDoActivity", "Acceleration changed to : $acceleration")
+                if (!todo.completed!!)
+                {
+                    Toast.makeText(applicationContext, "ToDo marked as completed", Toast.LENGTH_SHORT).show()
+                    todo.completed = true
+                    updateTodo()
+
+                    // Update UI
+                    findViewById<CheckBox>(R.id.todo_completed).isChecked = true
+                }
             }
         }
 
@@ -115,6 +120,13 @@ class ToDoActivity : AppCompatActivity() {
             todoDao.delete(todo)
         }
         finish()
+    }
+
+    private fun updateTodo()
+    {
+        Executors.newSingleThreadExecutor().execute {
+            todoDao.update(todo)
+        }
     }
 
     private fun showUpdateTodo() {
