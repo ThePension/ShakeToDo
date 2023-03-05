@@ -5,7 +5,7 @@ stages:
 
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
-- chmod +x ./gradlew
+- chmod +x ./ShakeToDo/gradlew
 
 cache:
   key: ${CI_PROJECT_ID}
@@ -15,7 +15,7 @@ cache:
 build:
   stage: build
   script:
-  - ./gradlew assembleDebug
+  - ./ShakeToDo/gradlew assembleDebug
   artifacts:
     paths:
-    - app/build/outputs/apk/app-debug.apk
+    - ShakeToDo/app/build/outputs/apk/app-debug.apk
