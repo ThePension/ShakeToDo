@@ -104,7 +104,6 @@
                 android:minHeight="10dp"
                 android:maxHeight="300dp"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/image"
                 android:layout_above="@id/pic_button"
                 />
 

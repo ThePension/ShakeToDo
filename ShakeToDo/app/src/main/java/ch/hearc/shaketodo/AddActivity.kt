@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -34,24 +32,6 @@ class AddActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var imageView: ImageView? = null
     private var imageUri: Uri? = null
-
-    private lateinit var cameraExecutor: ExecutorService
-
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val intent = result.data
-
-            // Get the image URI
-            imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
-
-            // do stuff here
-            Log.i("Image handling", "Image URI : ${imageUri.toString()}")
-
-            imageView?.setImageURI(imageUri)
-        }
-    }
-
 
     private lateinit var cameraExecutor: ExecutorService
 
