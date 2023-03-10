@@ -103,8 +103,9 @@
                 android:layout_width="match_parent"
                 android:minHeight="10dp"
                 android:maxHeight="300dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_above="@id/pic_button"
+                android:adjustViewBounds="true"
                 />
 
             <Button
