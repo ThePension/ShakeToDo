@@ -1,12 +1,13 @@
 package ch.hearc.shaketodo
 
-import android.content.Context
+import android.app.Application
+import android.net.Uri
 import android.content.Intent
+import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -45,7 +46,7 @@ class ToDoActivity : AppCompatActivity() {
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
 
         val todoId = intent.getLongExtra("todoId", -1L)
-        val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
+        val database: AppDatabase by lazy { AppDatabase.getInstance(applicationContext as Application) }
         todoDao = database.todoDao()
 
         if (todoId == -1L)

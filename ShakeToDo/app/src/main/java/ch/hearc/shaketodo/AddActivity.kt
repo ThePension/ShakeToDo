@@ -1,11 +1,9 @@
 package ch.hearc.shaketodo
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.net.Uri
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -13,13 +11,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.FactoryToDo
 import java.util.concurrent.ExecutorService
@@ -89,7 +80,7 @@ class AddActivity : AppCompatActivity() {
                 priority = spinner.selectedItem as Int,
                 completed = false
             )
-            val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
+            val database: AppDatabase by lazy { AppDatabase.getInstance(applicationContext as Application) }
             val todoDao = database.todoDao()
 
             Executors.newSingleThreadExecutor().execute {
