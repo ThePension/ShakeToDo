@@ -47,7 +47,9 @@
         android:text="@string/completed"
         android:layout_marginTop="20sp"
         android:layout_gravity="center"
-        android:textColor="@color/custom_blue"/>
+        android:textColor="@color/custom_blue"
+        android:enabled="false"
+        android:foregroundTint="@color/custom_blue"/>
 
     <RatingBar
         android:id="@+id/todo_priority"
@@ -56,7 +58,9 @@
         android:numStars="5"
         android:rating="3"
         android:textAlignment="center"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:isIndicator="true"
+        android:progressTint="@color/custom_blue"/>
 
     <ImageView
         android:id="@+id/imageView"
