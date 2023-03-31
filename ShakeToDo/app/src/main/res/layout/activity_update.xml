@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/custom_yellow">
+    android:background="@color/custom_yellow"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,8 +21,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:backgroundTint="@color/custom_blue"
-            android:textColor="@color/black"/>
+            android:textColor="@color/custom_blue"
+            android:autofillHints="name"
+            android:textColorHint="@color/ui_grey"
+            android:backgroundTint="@color/custom_blue"/>
 
         <EditText
             android:id="@+id/notes_edit_text"
@@ -32,8 +35,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_edit_text"
-            android:backgroundTint="@color/custom_blue"
-            android:textColor="@color/black"/>
+            android:textColor="@color/custom_blue"
+            android:autofillHints="notes"
+            android:textColorHint="@color/ui_grey"
+            android:backgroundTint="@color/custom_blue" />
 
         <DatePicker
             android:id="@+id/date_picker"
@@ -44,11 +49,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/notes_edit_text"
-            android:backgroundTint="@color/custom_blue"
             android:calendarTextColor="@color/custom_blue"
+            android:backgroundTint="@color/custom_blue"
             android:foregroundTint="@color/custom_blue"
-            android:foregroundTintMode="add"/>
+            />
+        <Space
+            android:id="@+id/priority_spacer"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            app:layout_constraintTop_toBottomOf="@id/date_picker"
+            >
 
+        </Space>
         <LinearLayout
             android:id="@+id/priority_layout"
             android:layout_width="match_parent"
@@ -56,51 +68,73 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_picker"
+            app:layout_constraintTop_toBottomOf="@id/priority_spacer"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_a_priority"
-                android:backgroundTint="@color/custom_blue"
-                android:foregroundTint="@color/custom_blue"
-                android:textColor="@color/black"/>
+                android:textColor="@color/custom_blue"
+                android:textSize="20sp"/>
 
             <Spinner
                 android:id="@+id/priority_spinner"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:foregroundTint="@color/custom_blue"
+                android:minHeight="20sp"
+                android:minWidth="5sp"
+                android:layout_weight="50"
+                android:textAlignment="viewEnd"
                 android:backgroundTint="@color/custom_blue"
-                android:textAlignment="viewEnd"/>
-
+                android:foregroundTint="@color/custom_blue"
+                />
         </LinearLayout>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="fill_parent"
+            app:layout_constraintTop_toBottomOf="@id/priority_layout">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:minHeight="10dp"
+                android:maxHeight="300dp"
+                android:layout_height="200dp"
+                android:layout_above="@id/update_image_button"
+                android:adjustViewBounds="true"
+                />
 
             <Button
                 android:id="@+id/update_button"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="end|bottom"
-                android:text="@string/udpate_button_text"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/update_button_text"
                 android:onClick="onUpdateButtonClick"
+                android:layout_alignParentBottom="true"
                 android:backgroundTint="@color/custom_blue"
                 android:textColor="@color/white"
-                android:layout_alignParentBottom="true"/>
+                />
 
             <Button
-                android:id="@+id/update_pic_button"
+                android:id="@+id/update_image_button"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="@string/update_pic_button_text"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/pic_button_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/update_button"
+                android:onClick="onUpdateImageButtonClick"
                 android:layout_above="@id/update_button"
                 android:backgroundTint="@color/custom_blue"
-                android:textColor="@color/white"/>
-        </RelativeLayout>
+                android:textColor="@color/white"
+                />
 
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

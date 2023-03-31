@@ -1,43 +1,72 @@
 package ch.hearc.shaketodo
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
-import com.google.android.material.snackbar.Snackbar
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.camera.core.ImageCapture
 import ch.hearc.shaketodo.database.AppDatabase
-import ch.hearc.shaketodo.databinding.ActivityUpdateBinding
-import ch.hearc.shaketodo.model.FactoryToDo
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
-import java.time.LocalDate
 import java.util.*
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class UpdateActivity : AppCompatActivity() {
 
-    private lateinit var todo : ToDo
-    private lateinit var todoDao : ToDoDao
+    private lateinit var todo: ToDo
+    private lateinit var todoDao: ToDoDao
+
+    private var imageCapture: ImageCapture? = null
+    private var imageView: ImageView? = null
+    private var imageUri: Uri? = null
+    private lateinit var nameEditText: EditText
+    private lateinit var dueDatePicker: DatePicker
+    private lateinit var notesEditText: EditText
+    private lateinit var spinner : Spinner
+
+    private lateinit var cameraExecutor: ExecutorService
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+
+            // Get the image URI
+            imageUri = Uri.parse(intent?.getStringExtra("imageUri"))
+
+            // do stuff here
+            Log.i("Image handling", "Image URI : ${imageUri.toString()}")
+
+            imageView?.setImageURI(imageUri)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
 
         // Find views
-        val nameEditText = findViewById<EditText>(R.id.name_edit_text)
-        val dueDatePicker = findViewById<DatePicker>(R.id.date_picker)
-        val notesEditText = findViewById<EditText>(R.id.notes_edit_text)
+        nameEditText = findViewById<EditText>(R.id.name_edit_text)
+        dueDatePicker = findViewById<DatePicker>(R.id.date_picker)
+        notesEditText = findViewById<EditText>(R.id.notes_edit_text)
+        
+        imageView = findViewById<ImageView>(R.id.imageView)
+
+        val updateImageButton = findViewById<Button>(R.id.update_image_button)
         val updateButton = findViewById<Button>(R.id.update_button)
 
         // Create and fill number picker
-        val spinner: Spinner = findViewById(R.id.priority_spinner)
+
         val numbers = (1..10).toList()
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, numbers)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner = findViewById(R.id.priority_spinner)
         spinner.adapter = adapter
 
         // Fill fields
@@ -45,8 +74,7 @@ class UpdateActivity : AppCompatActivity() {
         val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
         todoDao = database.todoDao()
 
-        if (todoId == -1L)
-        {
+        if (todoId == -1L) {
             Log.i("MainActivity", "ERREUR - TODO NOT FOUND")
             finish()
         }
@@ -63,9 +91,25 @@ class UpdateActivity : AppCompatActivity() {
         }
     }
 
+    fun onUpdateImageButtonClick() {
+        // Create an Intent to start NewActivity
+        val intent = Intent(this, TakePictureActivity::class.java)
+        // Start the NewActivity
+        startForResult.launch(intent)
+    }
+
     fun onUpdateButtonClick() {
-        Executors.newSingleThreadExecutor().execute {
-            todoDao.update(todo)
-        }
+        val name = nameEditText?.text.toString()
+        val notes = notesEditText?.text.toString()
+        val priority = spinner?.selectedItem.toString().toInt()
+        val dueDate = "${dueDatePicker?.year}-${dueDatePicker?.month}-${dueDatePicker?.dayOfMonth}"
+
+        todo.name =name;
+        todo.notes = notes
+        todo.priority = priority
+        todo.duedate = dueDate
+        todo.imagelocation = imageUri.toString()
+
+        Executors.newSingleThreadExecutor().execute { todoDao.update(todo) }
     }
 }

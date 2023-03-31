@@ -12,7 +12,7 @@
     <string name="take_picture_button">Take a picture</string>
     <string name="title_activity_update">UpdateActivity</string>
     <string name="update_pic_button_text">Update Picture</string>
-    <string name="udpate_button_text">Udpate</string>
+    <string name="update_button_text">Update</string>
     <string name="name_of_the_todo">Name of the ToDo</string>
     <string name="completed">Completed</string>
     <string name="image">Image</string>
