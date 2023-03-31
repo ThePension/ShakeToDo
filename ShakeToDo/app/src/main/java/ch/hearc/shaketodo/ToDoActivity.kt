@@ -1,25 +1,21 @@
 package ch.hearc.shaketodo
 
-import android.net.Uri
-import android.content.Intent
-import android.app.RecoverableSecurityException
-import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.activity.result.IntentSenderRequest
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
-import java.security.AccessController.getContext
 import java.util.*
 import java.util.concurrent.Executors
 import kotlin.math.sqrt
@@ -107,8 +103,18 @@ class ToDoActivity : AppCompatActivity() {
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
     }
 
+
+
     public fun onDeleteButtonClick(view: View) {
-        deleteTodo()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete Todo")
+        builder.setMessage("Are you sure you want to delete this todo?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            deleteTodo()
+        }
+        builder.setNegativeButton("No", null)
+        val dialog = builder.create()
+        dialog.show()
     }
 
     public fun onUpdateButtonClick(view: View) {
