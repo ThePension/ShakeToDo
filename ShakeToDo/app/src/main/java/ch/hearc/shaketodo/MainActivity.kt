@@ -7,8 +7,12 @@ import android.util.Log
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.ListView
+import androidx.lifecycle.Observer
+import ch.hearc.shaketodo.adapter.CustomAdapter
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
+import ch.hearc.shaketodo.service.Receiver
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +57,17 @@ class MainActivity : AppCompatActivity() {
             // Your code here, for example:
             showAddItem()
         }
+
+        /*************************************\
+         * Trying out Notifications
+         */
+
+        val title = "Example notification"
+        val content = "This is an example notification"
+        val triggerDate = Date(System.currentTimeMillis() + 60 * 100)
+
+        Receiver.createNotification(this, title, content, triggerDate)
+
     }
 
     private fun showTodoItem(todo: ToDo) {
