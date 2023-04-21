@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.FactoryToDo
+import ch.hearc.shaketodo.service.Receiver
+import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -86,6 +88,45 @@ class AddActivity : AppCompatActivity() {
             Executors.newSingleThreadExecutor().execute {
                 todoDao.insertAll(todo)
             }
+            // Create the intent to notify the user
+            val title = todo.name.toString()
+            val content = "This ToDo is due tomorrow!"
+            // Get time in milliseconds from dueDatePicker
+            // Get the selected year, month, and day from the DatePicker
+            val year = dueDatePicker.year
+            val month = dueDatePicker.month
+            val day = dueDatePicker.dayOfMonth
+
+            // Create a Calendar instance and set its fields to the selected date
+            val calendar = Calendar.getInstance().apply {
+                set(Calendar.YEAR, year)
+                set(Calendar.MONTH, month)
+                set(Calendar.DAY_OF_MONTH, day - 1) // Alarm will be set the previous day
+                set(Calendar.HOUR_OF_DAY, 8) // Alarm will be set at 8am the previous day
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+
+            // This triggertime would set the alarm for the day before the dueDate at 8am
+            val triggerDate = calendar.time
+            // For the purpose of our application (it being a school project)
+            // We decided to use a trigger time 10 seconds after the creation of the ToDo
+            // This is so during the presentation we don't have to wait for the dueDate to
+            // demonstrate notification capabilities
+
+
+            // Get the current time
+            val currentTime = Calendar.getInstance().time
+
+            // Add 10 seconds
+            val futureTime = Calendar.getInstance().apply {
+                time = currentTime
+                add(Calendar.SECOND, 10)
+            }.time
+            Log.i("NotifLog", "Creating notification with title=$title, content=$content, triggerDate=$futureTime")
+
+            Receiver.createNotification(this, title, content, futureTime)
             finish()
         }
     }

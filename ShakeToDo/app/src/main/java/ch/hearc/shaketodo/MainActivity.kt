@@ -57,17 +57,6 @@ class MainActivity : AppCompatActivity() {
             // Your code here, for example:
             showAddItem()
         }
-
-        /*************************************\
-         * Trying out Notifications
-         */
-
-        val title = "Example notification"
-        val content = "This is an example notification"
-        val triggerDate = Date(System.currentTimeMillis() + 60 * 100)
-
-        Receiver.createNotification(this, title, content, triggerDate)
-
     }
 
     private fun showTodoItem(todo: ToDo) {

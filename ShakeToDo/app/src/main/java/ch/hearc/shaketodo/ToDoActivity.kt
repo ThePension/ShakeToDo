@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
+import ch.hearc.shaketodo.service.Receiver
+import java.security.AccessController.getContext
 import java.util.*
 import java.util.concurrent.Executors
 import kotlin.math.sqrt
@@ -51,7 +53,7 @@ class ToDoActivity : AppCompatActivity() {
 
         if (todoId == -1L)
         {
-            Log.i("MainActivity", "ERREUR - TODO NOT FOUND")
+            Log.i("ToDoActivity", "ERREUR - TODO NOT FOUND")
             finish()
         }
         val todoName = findViewById<TextView>(R.id.todo_name)
