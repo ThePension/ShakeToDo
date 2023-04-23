@@ -23,7 +23,6 @@ class UpdateActivity : AppCompatActivity() {
     private lateinit var todo: ToDo
     private lateinit var todoDao: ToDoDao
 
-    private var imageCapture: ImageCapture? = null
     private var imageView: ImageView? = null
     private var imageUri: Uri? = null
     private lateinit var nameEditText: EditText
@@ -51,14 +50,11 @@ class UpdateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_update)
 
         // Find views
-        nameEditText = findViewById<EditText>(R.id.name_edit_text)
-        dueDatePicker = findViewById<DatePicker>(R.id.date_picker)
-        notesEditText = findViewById<EditText>(R.id.notes_edit_text)
+        nameEditText = findViewById(R.id.name_edit_text)
+        dueDatePicker = findViewById(R.id.date_picker)
+        notesEditText = findViewById(R.id.notes_edit_text)
         
-        imageView = findViewById<ImageView>(R.id.imageView)
-
-        val updateImageButton = findViewById<Button>(R.id.update_image_button)
-        val updateButton = findViewById<Button>(R.id.update_button)
+        imageView = findViewById(R.id.imageView)
 
         // Create and fill number picker
 
@@ -82,8 +78,8 @@ class UpdateActivity : AppCompatActivity() {
             todo = todoDao.findById(todoId)
             nameEditText.setText(todo.name)
             notesEditText.setText(todo.notes)
-            var splitDate = todo.duedate.toString().split("-")
-            var date = intArrayOf(splitDate[0].toInt(), splitDate[1].toInt(), splitDate[2].toInt())
+            val splitDate = todo.duedate.toString().split("-")
+            val date = intArrayOf(splitDate[0].toInt(), splitDate[1].toInt(), splitDate[2].toInt())
             dueDatePicker.updateDate(date[0], date[1], date[2])
             todo.priority?.let { spinner.setSelection(it - 1) }
 
@@ -115,6 +111,8 @@ class UpdateActivity : AppCompatActivity() {
         Executors.newSingleThreadExecutor().execute { todoDao.update(todo) }
 
         // Close the activity
+        val intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
 }
