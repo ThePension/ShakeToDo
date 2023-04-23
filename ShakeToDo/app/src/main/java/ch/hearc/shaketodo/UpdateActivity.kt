@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,8 +30,6 @@ class UpdateActivity : AppCompatActivity() {
     private lateinit var dueDatePicker: DatePicker
     private lateinit var notesEditText: EditText
     private lateinit var spinner : Spinner
-
-    private lateinit var cameraExecutor: ExecutorService
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
@@ -75,7 +74,7 @@ class UpdateActivity : AppCompatActivity() {
         todoDao = database.todoDao()
 
         if (todoId == -1L) {
-            Log.i("MainActivity", "ERREUR - TODO NOT FOUND")
+            Log.i("MainActivity", "ERROR - TODO NOT FOUND")
             finish()
         }
 
@@ -86,30 +85,36 @@ class UpdateActivity : AppCompatActivity() {
             var splitDate = todo.duedate.toString().split("-")
             var date = intArrayOf(splitDate[0].toInt(), splitDate[1].toInt(), splitDate[2].toInt())
             dueDatePicker.updateDate(date[0], date[1], date[2])
-            val rating = todo.priority ?: 0
-            spinner.setSelection(rating)
+            todo.priority?.let { spinner.setSelection(it - 1) }
+
         }
     }
 
-    fun onUpdateImageButtonClick() {
+    fun onUpdateImageButtonClick(view: View) {
         // Create an Intent to start NewActivity
         val intent = Intent(this, TakePictureActivity::class.java)
         // Start the NewActivity
         startForResult.launch(intent)
     }
 
-    fun onUpdateButtonClick() {
-        val name = nameEditText?.text.toString()
-        val notes = notesEditText?.text.toString()
-        val priority = spinner?.selectedItem.toString().toInt()
-        val dueDate = "${dueDatePicker?.year}-${dueDatePicker?.month}-${dueDatePicker?.dayOfMonth}"
+    fun onUpdateButtonClick(view: View) {
+        val name = nameEditText.text.toString()
+        val notes = notesEditText.text.toString()
+        val priority = spinner.selectedItem.toString().toInt()
+        val dueDate = "${dueDatePicker.year}-${dueDatePicker.month}-${dueDatePicker.dayOfMonth}"
 
         todo.name =name;
         todo.notes = notes
         todo.priority = priority
         todo.duedate = dueDate
-        todo.imagelocation = imageUri.toString()
-
+        if(imageUri!=null) {
+            todo.imagelocation = imageUri.toString()
+        }else{
+            todo.imagelocation=todo.imagelocation
+        }
         Executors.newSingleThreadExecutor().execute { todoDao.update(todo) }
+
+        // Close the activity
+        finish()
     }
 }
