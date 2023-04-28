@@ -82,7 +82,7 @@ class AddActivity : AppCompatActivity() {
                 priority = spinner.selectedItem as Int,
                 completed = false
             )
-            val database: AppDatabase by lazy { AppDatabase.getInstance(applicationContext as Application) }
+            val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
             val todoDao = database.todoDao()
 
             Executors.newSingleThreadExecutor().execute {

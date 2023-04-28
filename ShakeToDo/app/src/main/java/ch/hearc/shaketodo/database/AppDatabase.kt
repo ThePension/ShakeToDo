@@ -1,6 +1,7 @@
 package ch.hearc.shaketodo.database
 
 import android.app.Application
+import android.content.Context
 import androidx.room.*
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
@@ -13,10 +14,10 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Application): AppDatabase {
+        fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
+                    context,
                     AppDatabase::class.java,
                     "todo.db"
                 ).build()

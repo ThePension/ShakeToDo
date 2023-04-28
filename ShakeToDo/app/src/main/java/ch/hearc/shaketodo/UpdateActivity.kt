@@ -66,7 +66,7 @@ class UpdateActivity : AppCompatActivity() {
 
         // Fill fields
         val todoId = intent.getLongExtra("todoId", -1L)
-        val database: AppDatabase by lazy { AppDatabase.getInstance(applicationContext as Application) }
+        val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
         todoDao = database.todoDao()
 
         if (todoId == -1L) {
