@@ -170,7 +170,8 @@ class ToDoActivity : AppCompatActivity() {
             todoCompleted.isChecked = todo.completed ?: false
             val rating = todo.priority ?: 0
             todoPriority.rating = rating / 2F
-            imageView?.setImageURI(Uri.parse(todo.imagelocation))
         }
+        
+        imageView?.setImageURI(Uri.parse(todo.imagelocation))
     }
 }
