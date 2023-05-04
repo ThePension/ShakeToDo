@@ -2,7 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/parent_layout"
+    >
 
     <ImageView
         android:id="@+id/imageView"
@@ -36,6 +38,17 @@
             android:scaleY=".5"
             android:isIndicator="true"
             android:progressTint="@color/custom_blue"/>
+
+            <TextView
+                android:id="@+id/todo_duedate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/due_date"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/custom_blue"
+                android:layout_gravity="center"
+                android:gravity="center" />
 
     </LinearLayout>
 
