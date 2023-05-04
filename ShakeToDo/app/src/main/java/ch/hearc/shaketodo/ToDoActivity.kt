@@ -27,6 +27,7 @@ import kotlin.math.sqrt
 
 class ToDoActivity : AppCompatActivity() {
 
+    private var SENSITIVITY = 12
 
     private lateinit var todo : ToDo
     private lateinit var todoDao : ToDoDao
@@ -54,6 +55,15 @@ class ToDoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
+
+        // Get the sensibility from shared preferences, key : shake_sensibility
+        val sharedPref = this?.getSharedPreferences("shake_sensibility", Context.MODE_PRIVATE)
+
+        // Get the value from shared preferences
+        SENSITIVITY = sharedPref?.getInt("shake_sensibility", 10)!!
+
+        // Log the value
+        Log.i("ToDoActivity", "SENSITIVITY : $SENSITIVITY")
 
         // Getting the Sensor Manager instance
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
