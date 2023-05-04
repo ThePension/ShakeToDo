@@ -40,9 +40,6 @@ class CalendarFragment : Fragment() {
 
         calendarViewModel.shake_sensibility.observe(viewLifecycleOwner) {
             sensitivity_seekbar.progress = it
-
-            // Log
-            Log.d("CalendarFragment", "Shake sensibility: $it")
         }
 
         // Set listener

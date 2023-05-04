@@ -60,7 +60,7 @@ class ToDoActivity : AppCompatActivity() {
         val sharedPref = this?.getSharedPreferences("shake_sensibility", Context.MODE_PRIVATE)
 
         // Get the value from shared preferences
-        SENSITIVITY = sharedPref?.getInt("shake_sensibility", 10)!!
+        SENSITIVITY = 25 - sharedPref?.getInt("shake_sensibility", 10)!!
 
         // Log the value
         Log.i("ToDoActivity", "SENSITIVITY : $SENSITIVITY")
@@ -115,7 +115,7 @@ class ToDoActivity : AppCompatActivity() {
             acceleration = acceleration * 0.9f + delta
 
             // Set the ToDo state as Done if acceleration value is over 12
-            if (acceleration > 10) {
+            if (acceleration > SENSITIVITY) {
                 if (!todo.completed!!)
                 {
                     Toast.makeText(applicationContext, "ToDo marked as completed", Toast.LENGTH_SHORT).show()

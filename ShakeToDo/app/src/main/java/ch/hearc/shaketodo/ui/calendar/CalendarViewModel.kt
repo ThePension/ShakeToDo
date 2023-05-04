@@ -12,13 +12,13 @@ class CalendarViewModel : ViewModel() {
     }
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is calendar Fragment"
+        value = "\"Shake to complete\" sensitivity : "
     }
     val text: LiveData<String> = _text
 
 
     private val _shake_sensibility = MutableLiveData<Int>().apply {
-        value = 0
+        value = 5
     }
     val shake_sensibility: LiveData<Int> = _shake_sensibility
 }
