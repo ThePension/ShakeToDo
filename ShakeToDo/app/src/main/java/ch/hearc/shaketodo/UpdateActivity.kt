@@ -1,6 +1,7 @@
 package ch.hearc.shaketodo
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,12 +11,9 @@ import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.ImageCapture
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
-import java.util.*
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class UpdateActivity : AppCompatActivity() {

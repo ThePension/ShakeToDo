@@ -1,9 +1,9 @@
 package ch.hearc.shaketodo
 
 
-import android.app.Application
 import android.net.Uri
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -20,8 +20,6 @@ import androidx.appcompat.app.AppCompatActivity
 import ch.hearc.shaketodo.database.AppDatabase
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
-import ch.hearc.shaketodo.service.Receiver
-import java.security.AccessController.getContext
 import java.util.*
 import java.util.concurrent.Executors
 import kotlin.math.sqrt
@@ -65,7 +63,7 @@ class ToDoActivity : AppCompatActivity() {
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
 
         todoId = intent.getLongExtra("todoId", -1L)
-        val database: AppDatabase by lazy { AppDatabase.getInstance(this) }
+        val database: AppDatabase by lazy { AppDatabase.getInstance(applicationContext as Application) }
         todoDao = database.todoDao()
 
         if (todoId == -1L)

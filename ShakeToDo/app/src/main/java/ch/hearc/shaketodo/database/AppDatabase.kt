@@ -3,6 +3,7 @@ package ch.hearc.shaketodo.database
 import android.app.Application
 import android.content.Context
 import androidx.room.*
+import ch.hearc.shaketodo.AddActivity
 import ch.hearc.shaketodo.model.ToDo
 import ch.hearc.shaketodo.model.ToDoDao
 
