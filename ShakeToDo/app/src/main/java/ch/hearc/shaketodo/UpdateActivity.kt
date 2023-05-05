@@ -26,7 +26,8 @@ class UpdateActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var dueDatePicker: DatePicker
     private lateinit var notesEditText: EditText
-    private lateinit var spinner : Spinner
+    private lateinit var completed: CheckBox
+    private lateinit var spinner: Spinner
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
@@ -51,11 +52,11 @@ class UpdateActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.name_edit_text)
         dueDatePicker = findViewById(R.id.date_picker)
         notesEditText = findViewById(R.id.notes_edit_text)
+        completed = findViewById(R.id.completed_checkbox)
         
         imageView = findViewById(R.id.imageView)
 
         // Create and fill number picker
-
         val numbers = (1..10).toList()
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, numbers)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -80,7 +81,7 @@ class UpdateActivity : AppCompatActivity() {
             val date = intArrayOf(splitDate[0].toInt(), splitDate[1].toInt(), splitDate[2].toInt())
             dueDatePicker.updateDate(date[0], date[1], date[2])
             todo.priority?.let { spinner.setSelection(it - 1) }
-
+            completed.isChecked = todo.completed == true
         }
     }
 
@@ -101,11 +102,12 @@ class UpdateActivity : AppCompatActivity() {
         todo.notes = notes
         todo.priority = priority
         todo.duedate = dueDate
-        if(imageUri!=null) {
-            todo.imagelocation = imageUri.toString()
-        }else{
-            todo.imagelocation=todo.imagelocation
-        }
+        todo.completed = completed.isChecked
+
+        if(imageUri!=null) todo.imagelocation = imageUri.toString()
+        else todo.imagelocation=todo.imagelocation
+
+        // Update the ToDo in a separate thread
         Executors.newSingleThreadExecutor().execute { todoDao.update(todo) }
 
         // Close the activity

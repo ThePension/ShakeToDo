@@ -40,6 +40,20 @@
             android:textColorHint="@color/ui_grey"
             android:backgroundTint="@color/custom_blue" />
 
+        <CheckBox
+            android:id="@+id/completed_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/completed"
+            android:textColor="@color/custom_blue"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notes_edit_text"
+            android:backgroundTint="@color/custom_blue"
+            android:foregroundTint="@color/custom_blue"
+            />
+
         <DatePicker
             android:id="@+id/date_picker"
             android:layout_width="wrap_content"
@@ -48,7 +62,7 @@
             android:datePickerMode="spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notes_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/completed_checkbox"
             android:calendarTextColor="@color/custom_blue"
             android:backgroundTint="@color/custom_blue"
             android:foregroundTint="@color/custom_blue"
